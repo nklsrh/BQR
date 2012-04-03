@@ -5,9 +5,14 @@ function Game(){
         env = new Environment();
         
         this.Setup = function(){
-                assets.Setup();
+                assets.Setup(); 
+                setupMouse(); 
+                this.NewGame();                             
+        }
+
+        this.NewGame = function(){
                 env.Setup();
-                player.Setup();                
+                player.Setup(); 
         }
 
         this.Update = function(){
