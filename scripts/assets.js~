@@ -1,0 +1,8 @@
+function Assets(){
+        
+        this.player = new Image();
+
+        this.Setup = function(){
+                this.player.src = "./assets/firefox.png";
+        }
+}
