@@ -10,7 +10,7 @@ function Player(){
         this.level = 0;
 
         this.Setup = function(){
-                this.screenX = canvas.width * 0.2;
+                this.screenX = canvas.width * 0.15;
                 this.screenY = canvas.height * 0.55;
                 this.accY = 0;
                 this.jumpStrength = 0;
@@ -39,6 +39,8 @@ function Player(){
                         else{
                                 this.height = 0;
                                 this.accY = 0;
+                                if(this.runSpeed < this.startRunSpeed)
+                                        this.runSpeed = this.startRunSpeed;
                         }
                 }
         }
@@ -68,7 +70,7 @@ function Player(){
                                 this.runSpeed = this.startRunSpeed;    
                         }
                         else{
-                                this.runSpeed = 0; 
+                                this.runSpeed *= 0.65; 
                         }                        
                 }
                 this.runSpeed += 0.0003;
