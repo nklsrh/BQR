@@ -12,18 +12,18 @@ function Environment(){
         
         this.SetupGround = function(){
                 for(var x = 0; x < this.TileCount; x++){
-						if(x > 5){
-							if(x % 10 == 0){
-									this.NoGround[x] = 0;
-							}
-							if((x-1) % 20 == 0){
-									this.NoGround[x] = 0;
-							}
-							if(x % 14 == 0){
-									if(this.NoGround[x-2] != 0 && this.NoGround[x-1] != 0 && this.NoGround[x] != 0 && this.NoGround[x+1] != 0 && this.NoGround[x+2] != 0)
-											this.NoTree[x] = 0;
-							}
-						}
+			if(x > 5){
+				if(x % 10 == 0){
+					this.NoGround[x] = 0;
+				}
+				if((x-1) % 20 == 0){
+					this.NoGround[x] = 0;
+				}
+				if(x % 6 == 0){
+					if(this.NoGround[x-3] != 0 && this.NoGround[x-2] != 0 && this.NoGround[x-1] != 0 && this.NoGround[x] != 0 && this.NoGround[x+1] != 0 && this.NoGround[x+2] != 0 && this.NoGround[x+3] != 0)
+						this.NoTree[x] = 0;
+				}
+			}
                 }
         }
 
@@ -31,6 +31,7 @@ function Environment(){
                 this.screenX -= player.runSpeed * 60;
 
                 this.currentTile = -parseInt(this.screenX / (canvas.width * 0.2)) + 1;
+                console.log(this.currentTile);
         }
 
         this.Draw = function(ctx){
@@ -109,5 +110,19 @@ function Environment(){
                                 ctx.drawImage(assets.env, 0, 4329, 100, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.875, canvas.width*0.2, canvas.height*0.5);
                         }
                 } 
+        }
+
+
+
+        this.Tint = function(ctx, r, g, b){
+                ctx.save();
+                var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                for (var i=0, il = imageData.data.length; i < il; i+=4) {
+                        if (imageData.data[i] != 0) imageData.data[i] = imageData.data[i] + 0;    // red
+                        if (imageData.data[i+1] != 0) imageData.data[i+1] = imageData.data[i+1] - 100; // green
+                        if (imageData.data[i+1] != 0) imageData.data[i+2] = imageData.data[i+2] - 0; // blue
+                }
+                ctx.putImageData(imageData, 0, 0);
+                ctx.restore();
         }
 }

@@ -6,11 +6,13 @@
 </head>
 
 <body onload='Main();'>
-        <canvas id='gameCanvas' width='800' height='480'></canvas>
+        <canvas id='gameCanvas' width='400' height='240'></canvas>
 </body>
 <script type="application/javascript" src="./scripts/raf.js"></script>
 <script type="application/javascript" src="./scripts/jquery.min.js"></script>
+<script type="application/javascript" src="./scripts/gq.js"></script>
 
+<script type="application/javascript" src="./scripts/rules.js"></script>
 <script type="application/javascript" src="./scripts/assets.js"></script>
 <script type="application/javascript" src="./scripts/environment.js"></script>
 <script type="application/javascript" src="./scripts/player.js"></script>

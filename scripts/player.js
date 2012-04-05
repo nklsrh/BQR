@@ -2,7 +2,7 @@ function Player(){
         
         this.walkAnim = 0;
         this.screenX, this.screenY;
-        this.startRunSpeed = 0.3;
+        this.startRunSpeed = 0.3 * (30/FPS);
         this.runSpeed = this.startRunSpeed;
         this.jumpStrength = 0;
         this.height = 0;
@@ -28,21 +28,31 @@ function Player(){
         }
         
         this.Physics = function(){
-                this.height += this.accY;
+                this.height += this.accY  * (30/FPS);
                 this.accY -= 5;
                 this.screenY = (canvas.height * 0.6) - this.height;
+                
                 if(Math.abs(this.accY) > this.height || this.height <= 0){
                         if(env.NoGround[env.currentTile] == 0){
-                                this.accY *= 1.2;
-                                this.runSpeed *= 0.65;
+                                this.accY *= 1.5;
                         }
                         else{
-                                this.height = 0;
-                                this.accY = 0;
-                                if(this.runSpeed < this.startRunSpeed)
-                                        this.runSpeed = this.startRunSpeed;
+                                if(this.height > -100){
+                                        this.height = 0;
+                                        this.accY = 0;
+                                        if(this.runSpeed < this.startRunSpeed)
+                                                this.runSpeed = this.startRunSpeed;
+                                }
+                                else{
+                                        this.screenX -= this.runSpeed * 10;
+                                }
                         }
                 }
+        }
+
+        this.WhackIntoTrees = function(){
+
+
         }
 
         this.Input = function(){
@@ -60,11 +70,11 @@ function Player(){
         }
         
         this.Walking = function(){
-                this.walkAnim ++;
+                this.walkAnim += (30/FPS);
                 if(this.walkAnim > 13)
                         this.walkAnim = 0;
 
-                if(this.runSpeed < this.startRunSpeed){
+                /*if(this.runSpeed < this.startRunSpeed){
                         if(env.NoGround[env.currentTile] != 0 && this.height < -1){
                                 this.accY = -10;
                                 this.runSpeed = this.startRunSpeed;    
@@ -72,12 +82,12 @@ function Player(){
                         else{
                                 this.runSpeed *= 0.65; 
                         }                        
-                }
+                }*/
                 this.runSpeed += 0.0003;
         }
 
         this.Dead = function(){
-                if(this.height < -4000){
+                if(this.height < -400){
                         game.NewGame();
                 }
         }
@@ -90,7 +100,7 @@ function Player(){
 
         this.Jump = function(strength){
                 if(this.height == 0){
-                        this.accY = strength;
+                        this.accY = strength * (30/FPS);
                         console.log('jumpstart');
                         this.jumpStrength = 0;
                 }
