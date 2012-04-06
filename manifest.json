@@ -2,7 +2,7 @@
   "name": "Runner",
   "default_locale": "en-US",
   "icons": {
-    "120": "/assets/icon-120.png"
+    "120": "./assets/icon-120.png"
   },
   "description": "Runner",
   "launch_path": "/",
@@ -30,6 +30,6 @@
   },
   "developer": {
     "url": "http://nklsrh.github.com/BQR",
-    "name": "Runner"
+    "name": "nklsrh"
   }
 }

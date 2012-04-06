@@ -1,0 +1,11 @@
+{
+    "name":"Runner",
+    "developer": {
+        "name":"Runner",
+        "url":"http://nklsrh.github.com/BQR"
+    },
+    "description":"Fast and furious Open Web development game play!\n\nScore points by implementing Open Web features.\n\nWin powerups by upgrading your JavaScript engine, adding security features, and hardware acceleration.",
+    "icons":{
+        "120":"/assets/icon-120.png"
+    }
+}
