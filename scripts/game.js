@@ -7,7 +7,7 @@ function Game(){
 
         this.Setup = function(){
                 assets.Setup(); 
-                setupMouse();                 
+                setupMouse(); 
                 this.NewGame();                             
         }
 
@@ -17,19 +17,18 @@ function Game(){
                 rules.Setup();
         }
 
-        this.Update = function(){
-                canvas.width = canvas.width;  
+        this.Update = function(){                
                 env.Update();
                 player.Update();
-                rules.Update();
-                env.Draw(ctx);
-                player.Draw(ctx); 
-                
+                rules.Update();  
+				//gameQueryKeyboard();
         }
 
         this.Draw = function(){
-                //requestAnimationFrame(game.Draw);  
-                
+                requestAnimationFrame(game.Draw);  
+				canvas.width = canvas.width;  
+                env.Draw(ctx);
+                player.Draw(ctx); 
                                            
                 //env.Tint(ctx, 0, Math.abs(Math.sin(rules.time/100) * 100), Math.sin(rules.time/100) * 30);
         }

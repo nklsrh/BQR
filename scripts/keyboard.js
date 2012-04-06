@@ -3,7 +3,7 @@ var SHIFT = false, ESCAPE = false, SPACE = false, ENTER = false;
 var UP = false, DOWN = false, LEFT = false, RIGHT = false;
 
 function setupKeyboard(){
-	$("#gameCanvas").playground({height: screenHeight, width: screenWidth, keyTracker: true});
+
 }
 	//
 function gameQueryKeyboard(){

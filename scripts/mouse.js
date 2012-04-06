@@ -29,13 +29,13 @@ function setupMouse(){
 
 
 function MouseDown(e) {  
-        if(rawX < canvas.width * 0.3){
+        if(rawX < window.innerWidth * 0.3){
                 IsJumpButtonDown = true;	
                 WasJumpButtonDown = false;
         }
 }  
 function MouseUp(e) {
-        if(rawX < canvas.width * 0.3){
+        if(rawX < window.innerWidth * 0.3){
                 WasJumpButtonDown = true;
                 IsJumpButtonDown = false;
         }	

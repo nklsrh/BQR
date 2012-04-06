@@ -1,6 +1,6 @@
 function Environment(){
         
-        this.TileCount = 100;
+        this.TileCount = 200;
         this.NoGround = [];
         this.currentTile = 0;
         this.NoTree = [];
@@ -13,24 +13,33 @@ function Environment(){
         this.SetupGround = function(){
                 for(var x = 0; x < this.TileCount; x++){
 			if(x > 5){
-				if(x % 10 == 0){
+				if(x % 10 == 0 || x % 17 == 0){
 					this.NoGround[x] = 0;
 				}
 				if((x-1) % 20 == 0){
 					this.NoGround[x] = 0;
 				}
-				if(x % 6 == 0){
-					if(this.NoGround[x-3] != 0 && this.NoGround[x-2] != 0 && this.NoGround[x-1] != 0 && this.NoGround[x] != 0 && this.NoGround[x+1] != 0 && this.NoGround[x+2] != 0 && this.NoGround[x+3] != 0)
-						this.NoTree[x] = 0;
+				if(x > 10){
+					if(x % 12 == 0){
+						var hasNoGround = false;
+						for(var n = -3; n < 3; n++){
+							if(this.NoGround[x + n] == 0){
+								hasNoGround = true;
+							}
+						}
+						if(!hasNoGround){
+							this.NoTree[x] = 0;
+						}
+					}
 				}
 			}
                 }
         }
 
         this.Update = function(){
-                this.screenX -= player.runSpeed * 60;
+                this.screenX -= player.runSpeed * 60 * (canvas.width/CANVAS_WIDTH);
 
-                this.currentTile = -parseInt(this.screenX / (canvas.width * 0.2)) + 1;
+                this.currentTile = -parseInt((this.screenX+(player.startScreenX-player.screenX)) / (canvas.width * 0.2)) + 1;
                 console.log(this.currentTile);
         }
 
@@ -38,7 +47,7 @@ function Environment(){
                 this.DrawSky(ctx);
                 this.DrawGround(ctx);      
                 this.DrawUnderground(ctx); 
-		this.DrawTopGrass(ctx);
+				this.DrawTopGrass(ctx);
                 this.DrawBackwall(ctx);
                 this.DrawBacktrees(ctx);
                 this.DrawTrees(ctx);
@@ -58,7 +67,7 @@ function Environment(){
         this.DrawBacktrees= function(ctx){
                 for(var i = 0; i<this.TileCount; i++){
                         if(this.NoGround[i] != 0){
-                                        ctx.drawImage(assets.env, 480, 480, 300, 250, (i*canvas.width*0.17)+this.screenX, canvas.height*0.1+(Math.sin(i)*35), canvas.width*0.2, canvas.height*0.3);
+                                        ctx.drawImage(assets.env, 480, 480, 300, 250, (i*canvas.width*0.17)+this.screenX, canvas.height*(canvas.height/CANVAS_HEIGHT)*0.1+(Math.sin(i)*35), canvas.width*0.2, canvas.height*0.3);
                                 }
                 }
         }
@@ -86,7 +95,7 @@ function Environment(){
                 } 
         }
 		
-	this.DrawTopGrass = function(ctx){
+		this.DrawTopGrass = function(ctx){
                 for(var i = 0; i<this.TileCount; i++){                        
 			        ctx.drawImage(assets.env, 560, 340, 120, 125, (i*canvas.width*0.2)+this.screenX, canvas.height*0.10, canvas.width*0.2, canvas.height*0.4);
 			        ctx.drawImage(assets.env, 550, 193, 250, 255, (i*canvas.width*0.2)+this.screenX, canvas.height*0.12, canvas.width*0.2, canvas.height*0.4);
@@ -96,7 +105,7 @@ function Environment(){
         this.DrawTrees = function(ctx){
                 for(var i = 0; i<this.TileCount; i++){
                         if(this.NoTree[i] == 0 && this.NoGround[i] != 0){
-                                ctx.drawImage(assets.env, 480, 480, 290, 250, (i*canvas.width*0.2)+this.screenX, canvas.height*0.47, canvas.width*0.2, canvas.height*0.3);
+                                ctx.drawImage(assets.env, 480, 480, 290, 190, (i*canvas.width*0.2)+this.screenX, canvas.height*0.65, canvas.width*0.2, canvas.height*0.1);
                         }
                 } 
         }
