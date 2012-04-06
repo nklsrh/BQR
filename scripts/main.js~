@@ -14,4 +14,5 @@ function Install(){
         navigator.mozApps.install("./manifest.json");
         document.getElementById('installBtn').style.display = "none"; 
         Main();       
+        return false;
 }
