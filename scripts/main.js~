@@ -12,5 +12,6 @@ var ctx = canvas.getContext('2d');
 
 function Install(){
         navigator.mozApps.install("./manifest.json");
-        document.getElementById('installBtn').style.display = "none";        
+        document.getElementById('installBtn').style.display = "none"; 
+        Main();       
 }
