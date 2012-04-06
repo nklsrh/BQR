@@ -2,7 +2,7 @@ function Player(){
         
         this.walkAnim = 0;
         this.screenX, this.screenY;
-        this.startRunSpeed = 0.3 * (30/FPS);
+        this.startRunSpeed = 0.3;
         this.runSpeed = this.startRunSpeed;
         this.jumpStrength = 0;
         this.height = 0;
@@ -28,7 +28,7 @@ function Player(){
         }
         
         this.Physics = function(){
-                this.height += this.accY  * (30/FPS);
+                this.height += this.accY;
                 this.accY -= 5;
                 this.screenY = (canvas.height * 0.6) - this.height;
                 
@@ -59,7 +59,7 @@ function Player(){
                 if(IsJumpButtonDown){
                         if(this.jumpStrength < 20)
                                 this.jumpStrength = 20;
-                        if(this.jumpStrength <= 45)
+                        if(this.jumpStrength < 45)
                                 this.jumpStrength += 4;
                 }
                 if(!IsJumpButtonDown && WasJumpButtonDown){
@@ -100,7 +100,7 @@ function Player(){
 
         this.Jump = function(strength){
                 if(this.height == 0){
-                        this.accY = strength * (30/FPS);
+                        this.accY = strength;
                         console.log('jumpstart');
                         this.jumpStrength = 0;
                 }
