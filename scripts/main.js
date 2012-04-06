@@ -11,7 +11,7 @@ var canvas = document.getElementById('gameCanvas');
 var ctx = canvas.getContext('2d');
 
 function Install(){
-        navigator.mozApps.install("http://nklsrh.github.com/BQR/manifest.json");
+        navigator.mozApps.install("http://nklsrh.github.com/BQR/manifest.webapp");
         document.getElementById('installBtn').style.display = "none"; 
         Main();       
         return false;
