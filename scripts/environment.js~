@@ -1,6 +1,6 @@
 function Environment(){
         
-        this.TileCount = 100;
+        this.TileCount = 200;
         this.NoGround = [];
         this.currentTile = 0;
         this.NoTree = [];
@@ -13,24 +13,27 @@ function Environment(){
         this.SetupGround = function(){
                 for(var x = 0; x < this.TileCount; x++){
 			if(x > 5){
-				if(x % 10 == 0){
+				if(x % 10 == 0 || x % 17 == 0){
 					this.NoGround[x] = 0;
 				}
 				if((x-1) % 20 == 0){
 					this.NoGround[x] = 0;
 				}
-				if(x % 6 == 0){
-					if(this.NoGround[x-3] != 0 && this.NoGround[x-2] != 0 && this.NoGround[x-1] != 0 && this.NoGround[x] != 0 && this.NoGround[x+1] != 0 && this.NoGround[x+2] != 0 && this.NoGround[x+3] != 0)
-						this.NoTree[x] = 0;
+				if(x > 10){
+					if(x % 7 == 0){
+						if(this.NoGround[x] != 0){
+							this.NoTree[x] = 0;
+						}
+					}
 				}
 			}
                 }
         }
 
         this.Update = function(){
-                this.screenX -= player.runSpeed * 60;
+                this.screenX -= player.runSpeed * 60 * (canvas.width/CANVAS_WIDTH);
 
-                this.currentTile = -parseInt(this.screenX / (canvas.width * 0.2)) + 1;
+                this.currentTile = -parseInt((this.screenX+(player.startScreenX-player.screenX)) / (canvas.width * 0.2)) + 1;
                 console.log(this.currentTile);
         }
 
@@ -38,7 +41,7 @@ function Environment(){
                 this.DrawSky(ctx);
                 this.DrawGround(ctx);      
                 this.DrawUnderground(ctx); 
-		this.DrawTopGrass(ctx);
+				this.DrawTopGrass(ctx);
                 this.DrawBackwall(ctx);
                 this.DrawBacktrees(ctx);
                 this.DrawTrees(ctx);
@@ -58,7 +61,7 @@ function Environment(){
         this.DrawBacktrees= function(ctx){
                 for(var i = 0; i<this.TileCount; i++){
                         if(this.NoGround[i] != 0){
-                                        ctx.drawImage(assets.env, 480, 480, 300, 250, (i*canvas.width*0.17)+this.screenX, canvas.height*0.1+(Math.sin(i)*35), canvas.width*0.2, canvas.height*0.3);
+                                        ctx.drawImage(assets.env, 480, 480, 300, 250, (i*canvas.width*0.17)+this.screenX, canvas.height*(canvas.height/CANVAS_HEIGHT)*0.1+(Math.sin(i)*35), canvas.width*0.2, canvas.height*0.3);
                                 }
                 }
         }
@@ -79,8 +82,8 @@ function Environment(){
                                 ctx.drawImage(assets.env, 430, 2790, 360, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.75, canvas.width*0.2, canvas.height*0.2);
                         }
                         else{
-                                ctx.drawImage(assets.env, 430, 2790, 360, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.50, canvas.width*0.2, canvas.height*0.2);
-                                ctx.drawImage(assets.env, 430, 2790, 360, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.65, canvas.width*0.2, canvas.height*0.22);
+                                ctx.drawImage(assets.env, 430, 2790, 360, 125, (i*canvas.width*0.2)+this.screenX, canvas.height*0.50, canvas.width*0.2, canvas.height*0.2);
+                                ctx.drawImage(assets.env, 430, 2865, 360, 70, (i*canvas.width*0.2)+this.screenX, canvas.height*0.675, canvas.width*0.2, canvas.height*0.22);
 
                         }                               
                 } 
@@ -96,7 +99,7 @@ function Environment(){
         this.DrawTrees = function(ctx){
                 for(var i = 0; i<this.TileCount; i++){
                         if(this.NoTree[i] == 0 && this.NoGround[i] != 0){
-                                ctx.drawImage(assets.env, 480, 480, 290, 250, (i*canvas.width*0.2)+this.screenX, canvas.height*0.47, canvas.width*0.2, canvas.height*0.3);
+                                ctx.drawImage(assets.env, 480, 480, 290, 190, (i*canvas.width*0.2)+this.screenX, canvas.height*0.6, canvas.width*0.1, canvas.height*0.1);
                         }
                 } 
         }
@@ -118,9 +121,9 @@ function Environment(){
                 ctx.save();
                 var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 for (var i=0, il = imageData.data.length; i < il; i+=4) {
-                        if (imageData.data[i] != 0) imageData.data[i] = imageData.data[i] + 0;    // red
-                        if (imageData.data[i+1] != 0) imageData.data[i+1] = imageData.data[i+1] - 100; // green
-                        if (imageData.data[i+1] != 0) imageData.data[i+2] = imageData.data[i+2] - 0; // blue
+                        if (imageData.data[i] != 0) imageData.data[i] = imageData.data[i] + r;    // red
+                        if (imageData.data[i+1] != 0) imageData.data[i+1] = imageData.data[i+1] - g; // green
+                        if (imageData.data[i+1] != 0) imageData.data[i+2] = imageData.data[i+2] - b; // blue
                 }
                 ctx.putImageData(imageData, 0, 0);
                 ctx.restore();
