@@ -20,14 +20,8 @@ function Environment(){
 					this.NoGround[x] = 0;
 				}
 				if(x > 10){
-					if(x % 12 == 0){
-						var hasNoGround = false;
-						for(var n = -3; n < 3; n++){
-							if(this.NoGround[x + n] == 0){
-								hasNoGround = true;
-							}
-						}
-						if(!hasNoGround){
+					if(x % 7 == 0){
+						if(this.NoGround[x] != 0){
 							this.NoTree[x] = 0;
 						}
 					}
@@ -88,14 +82,14 @@ function Environment(){
                                 ctx.drawImage(assets.env, 430, 2790, 360, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.75, canvas.width*0.2, canvas.height*0.2);
                         }
                         else{
-                                ctx.drawImage(assets.env, 430, 2790, 360, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.50, canvas.width*0.2, canvas.height*0.2);
-                                ctx.drawImage(assets.env, 430, 2790, 360, 150, (i*canvas.width*0.2)+this.screenX, canvas.height*0.65, canvas.width*0.2, canvas.height*0.22);
+                                ctx.drawImage(assets.env, 430, 2790, 360, 125, (i*canvas.width*0.2)+this.screenX, canvas.height*0.50, canvas.width*0.2, canvas.height*0.2);
+                                ctx.drawImage(assets.env, 430, 2865, 360, 70, (i*canvas.width*0.2)+this.screenX, canvas.height*0.675, canvas.width*0.2, canvas.height*0.22);
 
                         }                               
                 } 
         }
 		
-		this.DrawTopGrass = function(ctx){
+	this.DrawTopGrass = function(ctx){
                 for(var i = 0; i<this.TileCount; i++){                        
 			        ctx.drawImage(assets.env, 560, 340, 120, 125, (i*canvas.width*0.2)+this.screenX, canvas.height*0.10, canvas.width*0.2, canvas.height*0.4);
 			        ctx.drawImage(assets.env, 550, 193, 250, 255, (i*canvas.width*0.2)+this.screenX, canvas.height*0.12, canvas.width*0.2, canvas.height*0.4);
@@ -105,7 +99,7 @@ function Environment(){
         this.DrawTrees = function(ctx){
                 for(var i = 0; i<this.TileCount; i++){
                         if(this.NoTree[i] == 0 && this.NoGround[i] != 0){
-                                ctx.drawImage(assets.env, 480, 480, 290, 190, (i*canvas.width*0.2)+this.screenX, canvas.height*0.65, canvas.width*0.2, canvas.height*0.1);
+                                ctx.drawImage(assets.env, 480, 480, 290, 190, (i*canvas.width*0.2)+this.screenX, canvas.height*0.6, canvas.width*0.1, canvas.height*0.1);
                         }
                 } 
         }

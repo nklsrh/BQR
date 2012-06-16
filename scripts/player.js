@@ -2,15 +2,15 @@ function Player(){
         
         this.walkAnim = 0;
         this.screenX, this.screenY;
-        this.startRunSpeed = 0.3;
-		this.slowestSpeed = 0.2;
+        this.startRunSpeed = 0;
+        this.slowestSpeed = 0.1;
         this.runSpeed = this.startRunSpeed;
         this.jumpStrength = 0;
         this.height = 0;
         this.accY = 0;
-        this.level = 0;
-		this.stuck = false;
-		this.startScreenX = CANVAS_WIDTH * 0.15;
+        this.level = 0;	//FIREFOX TIME!
+        this.stuck = false;
+        this.startScreenX = CANVAS_WIDTH * 0.15;
 		
         this.Setup = function(){
                 this.screenX = CANVAS_WIDTH * 0.15;
@@ -62,7 +62,7 @@ function Player(){
 		this.lastrunSpeed = this.startRunSpeed;
 		
         this.WhackIntoTrees = function(){
-			if(this.runSpeed > this.startRunSpeed){
+			/*if(this.runSpeed > this.startRunSpeed){
 				this.lastrunSpeed = this.runSpeed;
 			}			
 			if(env.NoTree[env.currentTile] == 0){
@@ -72,21 +72,23 @@ function Player(){
 				else{
 					this.stuck = false;
 				}
-			}
+			}*/
         }
 
-        this.Input = function(){
-                if(IsJumpButtonDown){
+        this.Input = function(){                
+                if(IsJumpButtonDown || S){
                         if(this.jumpStrength < 20)
                                 this.jumpStrength = 20;
                         if(this.jumpStrength < 45)
                                 this.jumpStrength += 4;
                 }
-                if(!IsJumpButtonDown && WasJumpButtonDown){
+                if((!IsJumpButtonDown || !S) && (WasJumpButtonDown || preS)){
                         this.Jump(this.jumpStrength);
                         WasJumpButtonDown = false;
                         console.log('mouseclicked');
                 }
+
+                preS = false;
         }
         
         this.Walking = function(){
@@ -103,7 +105,11 @@ function Player(){
                                 this.runSpeed *= 0.65; 
                         }                        
                 }*/
-                this.runSpeed += 0.0003;
+				if(D)
+                this.runSpeed += 0.03;
+				
+				if(this.runSpeed < 0.5)
+				this.runSpeed += 0.002;
         }
 
         this.Dead = function(){
